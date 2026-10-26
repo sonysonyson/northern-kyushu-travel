@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>북규슈 여행 플래너</title>
+  <meta name="description" content="2026.11.26 ~ 11.30 북규슈(벳푸·유후인·후쿠오카) 4박 5일 여행 스케줄 플래너" />
+  <meta name="theme-color" content="#f6f0ea" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♨️</text></svg>" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <!-- 3.1 Header -->
+  <header class="header">
+    <div class="header__inner">
+      <div class="brand">
+        <div class="brand__logo" aria-hidden="true">♨</div>
+        <div>
+          <p class="brand__eyebrow">Travel Planner</p>
+          <h1 class="brand__title" id="tripTitle">여행 제목</h1>
+          <p class="brand__period" id="tripPeriod"></p>
+        </div>
+      </div>
+      <div class="header__actions">
+        <button class="btn btn--ghost" id="btnSummary" type="button">
+          <span aria-hidden="true">🗂</span><span class="btn__label">전체 일정 요약</span>
+        </button>
+        <button class="btn btn--ghost" id="btnReset" type="button">
+          <span aria-hidden="true">↺</span><span class="btn__label">샘플 데이터 불러오기</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3.2 Day Tabs -->
+  <nav class="tabs" aria-label="일자 선택">
+    <div class="tabs__scroller" id="dayTabs" role="tablist"></div>
+  </nav>
+
+  <!-- Main -->
+  <main class="main">
+    <!-- 3.3 Timeline -->
+    <section class="panel panel--timeline" aria-labelledby="dayHeading">
+      <div class="day-head">
+        <div>
+          <p class="day-head__date" id="dayDate"></p>
+          <h2 class="day-head__title" id="dayHeading"></h2>
+        </div>
+        <div class="day-head__stats" id="dayStats"></div>
+      </div>
+      <ol class="timeline" id="timeline"></ol>
+    </section>
+
+    <!-- 3.4 Form (desktop: 우측 패널 / mobile: 바텀 시트) -->
+    <aside class="panel panel--form sheet" id="formSheet" aria-labelledby="formTitle">
+      <div class="sheet__handle" aria-hidden="true"></div>
+      <div class="form-head">
+        <h2 class="form-head__title" id="formTitle">새 일정 등록</h2>
+        <button class="icon-btn sheet__close" id="btnSheetClose" type="button" aria-label="닫기">✕</button>
+      </div>
+      <form id="scheduleForm" novalidate>
+        <input type="hidden" id="fId" />
+        <div class="field-row">
+          <label class="field">
+            <span class="field__label">일자</span>
+            <select id="fDay" class="input"></select>
+          </label>
+          <label class="field">
+            <span class="field__label">시간</span>
+            <input id="fTime" class="input" type="time" value="10:00" required />
+          </label>
+        </div>
+
+        <label class="field">
+          <span class="field__label">장소 / 활동명 <em class="req">필수</em></span>
+          <input id="fTitle" class="input" type="text" maxlength="60" placeholder="예) 우미 지옥 관람" autocomplete="off" />
+          <span class="field__error" id="fTitleError" role="alert"></span>
+        </label>
+
+        <fieldset class="field">
+          <legend class="field__label">카테고리</legend>
+          <div class="chips" id="fCategory" role="radiogroup"></div>
+        </fieldset>
+
+        <div class="field">
+          <label class="field__label" for="fCost">비용 (엔, 선택)</label>
+          <div class="input-affix">
+            <span class="input-affix__pre">¥</span>
+            <input id="fCost" class="input" type="number" min="0" step="10" inputmode="numeric" placeholder="예) 1600" />
+          </div>
+          <label class="check-inline" id="fSunqWrap">
+            <input type="checkbox" id="fSunq" /> SunQ 패스 적용 노선 (이동)
+          </label>
+        </div>
+
+        <label class="field">
+          <span class="field__label">메모 (선택) <span class="counter" id="fMemoCount">0/100</span></span>
+          <textarea id="fMemo" class="input" rows="2" maxlength="100" placeholder="간단한 한 줄 설명"></textarea>
+        </label>
+
+        <details class="field tip-fields">
+          <summary>TIP 정보 추가 (선택)</summary>
+          <label class="field"><span class="field__label">영업 시간</span><input id="fTipHours" class="input" type="text" /></label>
+          <label class="field"><span class="field__label">휴무일</span><input id="fTipClosed" class="input" type="text" /></label>
+          <label class="field"><span class="field__label">주의할 점</span><input id="fTipCaution" class="input" type="text" /></label>
+          <label class="field"><span class="field__label">참고할 점</span><input id="fTipNote" class="input" type="text" /></label>
+          <label class="field"><span class="field__label">구글 지도 검색어</span><input id="fTipMap" class="input" type="text" placeholder="예) 海地獄 別府" /></label>
+        </details>
+
+        <div class="form-actions">
+          <button class="btn btn--ghost" type="button" id="btnFormCancel">취소</button>
+          <button class="btn btn--primary" type="submit" id="btnFormSubmit">일정 등록</button>
+        </div>
+      </form>
+    </aside>
+  </main>
+
+  <p class="disclaimer" id="disclaimer"></p>
+
+  <button class="fab" id="fab" type="button" aria-label="일정 추가"><span aria-hidden="true">＋</span> 일정 추가</button>
+  <div class="scrim" id="scrim" hidden></div>
+
+  <!-- Layer popup (TIP / 요약 공용) -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal__card">
+      <div class="modal__head">
+        <h3 class="modal__title" id="modalTitle"></h3>
+        <button class="icon-btn" id="btnModalClose" type="button" aria-label="닫기">✕</button>
+      </div>
+      <div class="modal__body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
