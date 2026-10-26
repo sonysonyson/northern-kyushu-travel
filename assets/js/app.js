@@ -5,7 +5,7 @@
   var NK = window.NK;
   var CATS = NK.CATEGORIES;
   var STORAGE_KEY = "nk-trip";
-  var DATA_VERSION = 1; // 샘플 데이터 구조가 바뀌면 올린다 (저장본 무효화)
+  var DATA_VERSION = 2; // 샘플 데이터 구조가 바뀌면 올린다 (저장본 무효화)
   var WEEK = ["일", "월", "화", "수", "목", "금", "토"];
 
   var state = {
@@ -292,6 +292,7 @@
       "<ul>" +
       "<li>종이권(" + yen(P.paperPrice) + ", 연속 3일)이라면 최대 " + yen(res.paper.value) + " (Day " + res.paper.days.join("~") + ") 를 아낄 수 있습니다.</li>" +
       "<li>후쿠오카 시내 지하철·JR·니시테츠 전철은 SunQ가 적용되지 않습니다.</li>" +
+      "<li>다카사키야마·우미타마고 왕복 버스는 몽키·마린 티켓에 포함되어 있어 계산에서 뺐습니다.</li>" +
       "<li>유후인을 빼면(벳푸→하카타 고속버스 직행 ¥3,250) Day 3 적용 금액이 약 ¥1,100 줄어 손해 폭이 커집니다.</li>" +
       "<li>패스 없이 교통 IC카드(Suica·나모카 등)나 현금으로 그때그때 내는 것을 권합니다. 고속버스는 웹 예약을 하세요.</li>" +
       "</ul></div>" +
