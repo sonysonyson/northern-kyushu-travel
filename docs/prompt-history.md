@@ -15,3 +15,10 @@
 > 해당 필수요소를 참고하여 일정을 수정할 수 있도록 한다.
 >
 > 또한, 수족관과 동물원과 벳푸 왕복 교통권을 구매할 수 있다고 하는데 이 부분을 정보를 획득하여서 일정에 넣어도 되는지 검증하고 넣는게 좋을 수 있다는 판단이면 넣도록 하고 정보를 업데이트한다.
+
+## 2026-10-26 17:59:55 KST · session 511b2d5f
+
+> 현재 단계에 git  단계 알려줄수 있도록한다. 현재
+> git remote add orgin https://github.com/sonysonyson/northern-kyushu-travel.git
+> git init
+> git add -A 를 수행하였다.
